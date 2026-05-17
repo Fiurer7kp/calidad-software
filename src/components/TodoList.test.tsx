@@ -70,4 +70,34 @@ describe("TodoList Component", () => {
     expect(screen.getByText("Tarea 1")).toBeInTheDocument();
     expect(screen.getByText("Tarea 3")).toBeInTheDocument();
   });
+
+  test("el input se limpia después de agregar una tarea", () => {
+    render(<TodoList />);
+    const input = screen.getByPlaceholderText("Nueva tarea") as HTMLInputElement;
+    const addButton = screen.getByText("Agregar");
+
+    fireEvent.change(input, { target: { value: "Limpiar cocina" } });
+    fireEvent.click(addButton);
+
+    expect(input.value).toBe("");
+  });
+
+  test("no agrega tarea con solo espacios en blanco", () => {
+    render(<TodoList />);
+    const input = screen.getByPlaceholderText("Nueva tarea");
+    const addButton = screen.getByText("Agregar");
+
+    fireEvent.change(input, { target: { value: "   " } });
+    fireEvent.click(addButton);
+
+    const listItems = screen.queryAllByRole("listitem");
+    expect(listItems.length).toBe(0);
+  });
+
+  test("la lista inicia vacía sin elementos visibles", () => {
+    render(<TodoList />);
+    const listItems = screen.queryAllByRole("listitem");
+    expect(listItems.length).toBe(0);
+    expect(screen.getByPlaceholderText("Nueva tarea")).toBeInTheDocument();
+  });
 });
