@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import GuideMascot from "../components/GuideMascot";
+import Quiz, { QuizQuestion } from "../components/Quiz";
 
 /* ── Datos de cada figura ─────────────────────────────────── */
 const FIGURES = {
@@ -122,6 +124,33 @@ function MiniView({
   );
 }
 
+const QUIZ_QUESTIONS: QuizQuestion[] = [
+  {
+    question: "¿Cuántas caras tiene un cubo?",
+    options: ["4", "6", "8", "12"],
+    correct: 1,
+    explanation: "Un cubo tiene 6 caras cuadradas, todas iguales. ¡Como los dados!",
+  },
+  {
+    question: "¿Qué son las aristas de una figura 3D?",
+    options: ["Los puntos de las esquinas", "Las líneas donde se unen dos caras", "Las superficies planas", "Los colores de la figura"],
+    correct: 1,
+    explanation: "Las aristas son las líneas o bordes donde se encuentran dos caras de la figura.",
+  },
+  {
+    question: "La fórmula de Euler dice que C - A + V = ?",
+    options: ["0", "1", "2", "3"],
+    correct: 2,
+    explanation: "Para cualquier sólido convexo: Caras - Aristas + Vértices = 2. ¡Es siempre igual!",
+  },
+  {
+    question: "¿Cuántos vértices tiene una pirámide triangular (tetraedro)?",
+    options: ["3", "4", "5", "6"],
+    correct: 1,
+    explanation: "Una pirámide triangular tiene 4 vértices: 3 en la base y 1 en la punta.",
+  },
+];
+
 /* ── Vista principal ──────────────────────────────────────── */
 export default function Descomposicion() {
   const [fig, setFig] = useState<FigKey>("cubo");
@@ -198,7 +227,7 @@ export default function Descomposicion() {
       </div>
 
       {/* Fórmula de Euler */}
-      <div className="max-w-2xl mx-auto bg-slate-800 rounded-xl p-6 border border-slate-700">
+      <div className="max-w-2xl mx-auto bg-slate-800 rounded-xl p-6 border border-slate-700 mb-6">
         <h2 className="text-xl font-bold text-white text-center mb-4">Fórmula de Euler</h2>
         <div className="bg-slate-900 rounded-lg px-6 py-4 text-center mb-4">
           <span className="text-3xl md:text-4xl font-black text-white font-mono tracking-widest">
@@ -211,6 +240,19 @@ export default function Descomposicion() {
           <span className="text-white font-semibold">V</span> = Vértices
         </p>
         <div className="text-center text-lg font-bold text-green-400">{data.euler}</div>
+      </div>
+
+      {/* Mascota guía */}
+      <div className="max-w-2xl mx-auto mb-5">
+        <GuideMascot
+          mood="explaining"
+          message={`¡Muy bien! El ${data.label} tiene ${data.caras} caras, ${data.aristas} aristas y ${data.vertices} vértices. Comprueba la fórmula de Euler: ${data.euler} — ¡siempre da 2 en sólidos convexos!`}
+        />
+      </div>
+
+      {/* Quiz */}
+      <div className="max-w-2xl mx-auto">
+        <Quiz title="Quiz de Figuras 3D" questions={QUIZ_QUESTIONS} />
       </div>
     </div>
   );
