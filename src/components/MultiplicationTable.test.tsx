@@ -35,4 +35,30 @@ describe("MultiplicationTable", () => {
     // La tabla no debe mostrarse
     expect(screen.queryByText(/Tabla del/)).toBeNull();
   });
+
+  test("genera correctamente la tabla del 1 (elemento neutro de multiplicación)", () => {
+    render(<MultiplicationTable />);
+    const input = screen.getByPlaceholderText("Número");
+    const button = screen.getByRole("button", { name: /Generar/i });
+
+    fireEvent.change(input, { target: { value: "1" } });
+    fireEvent.click(button);
+
+    expect(screen.getByText("Tabla del 1")).toBeInTheDocument();
+    expect(screen.getByText("1 × 1 = 1")).toBeInTheDocument();
+    expect(screen.getByText("1 × 10 = 10")).toBeInTheDocument();
+  });
+
+  test("genera correctamente la tabla del 0 (todos los resultados son 0)", () => {
+    render(<MultiplicationTable />);
+    const input = screen.getByPlaceholderText("Número");
+    const button = screen.getByRole("button", { name: /Generar/i });
+
+    fireEvent.change(input, { target: { value: "0" } });
+    fireEvent.click(button);
+
+    expect(screen.getByText("Tabla del 0")).toBeInTheDocument();
+    expect(screen.getByText("0 × 1 = 0")).toBeInTheDocument();
+    expect(screen.getByText("0 × 5 = 0")).toBeInTheDocument();
+  });
 });
