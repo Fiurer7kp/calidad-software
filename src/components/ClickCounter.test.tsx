@@ -27,4 +27,20 @@ describe("ClickCounter Component", () => {
     expect(screen.getByText(/Has hecho clic:/)).toHaveTextContent("Has hecho clic: 6 veces");
     expect(localStorage.getItem("click-counter")).toBe("6");
   });
+
+  test("el contador inicia en 0 cuando no hay valor guardado en localStorage", () => {
+    render(<ClickCounter />);
+    expect(screen.getByText(/Has hecho clic:/)).toHaveTextContent("Has hecho clic: 0 veces");
+  });
+
+  test("múltiples clics incrementan el contador correctamente", () => {
+    render(<ClickCounter />);
+    const button = screen.getByRole("button", { name: /Haz clic aquí/i });
+
+    fireEvent.click(button);
+    fireEvent.click(button);
+    fireEvent.click(button);
+
+    expect(screen.getByText(/Has hecho clic:/)).toHaveTextContent("Has hecho clic: 3 veces");
+  });
 });
