@@ -35,9 +35,9 @@ describe("NumAleatorio Component", () => {
   });
 
   test("cada clic genera un nuevo número distinto", () => {
-    
+
     jest.spyOn(Math, 'random').mockReturnValueOnce(0.5);
-    
+
     jest.spyOn(Math, 'random').mockReturnValueOnce(0.1);
 
     render(<NumAleatorio />);
@@ -51,11 +51,33 @@ describe("NumAleatorio Component", () => {
     fireEvent.click(button);
     expect(screen.getByText("Número generado: 11")).toBeInTheDocument();
 
-    
+
     expect(51).not.toBe(11);
 
 
-    
+
+    jest.restoreAllMocks();
+  });
+
+  test("genera el valor mínimo (1) cuando Math.random() retorna 0", () => {
+    jest.spyOn(Math, 'random').mockReturnValue(0);
+    render(<NumAleatorio />);
+    const button = screen.getByRole("button", { name: /Generar Número/i });
+
+    fireEvent.click(button);
+
+    expect(screen.getByText("Número generado: 1")).toBeInTheDocument();
+    jest.restoreAllMocks();
+  });
+
+  test("genera el valor máximo (100) cuando Math.random() retorna 0.99", () => {
+    jest.spyOn(Math, 'random').mockReturnValue(0.99);
+    render(<NumAleatorio />);
+    const button = screen.getByRole("button", { name: /Generar Número/i });
+
+    fireEvent.click(button);
+
+    expect(screen.getByText("Número generado: 100")).toBeInTheDocument();
     jest.restoreAllMocks();
   });
 });
