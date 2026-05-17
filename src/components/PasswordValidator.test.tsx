@@ -32,4 +32,26 @@ describe("PasswordValidator Component", () => {
     expect(screen.getByText(/Contiene un número/)).toHaveTextContent("✔️");
     expect(screen.getByText(/Contiene una letra mayúscula/)).toHaveTextContent("❌");
   });
+
+  test("contraseña solo con letras minúsculas falla requisitos de número y mayúscula", () => {
+    render(<PasswordValidator />);
+    const input = screen.getByPlaceholderText("Escriba su contraseña");
+
+    fireEvent.change(input, { target: { value: "contraseña" } });
+
+    expect(screen.getByText(/Al menos 8 caracteres/)).toHaveTextContent("✔️");
+    expect(screen.getByText(/Contiene un número/)).toHaveTextContent("❌");
+    expect(screen.getByText(/Contiene una letra mayúscula/)).toHaveTextContent("❌");
+  });
+
+  test("contraseña menor a 8 caracteres falla el requisito de longitud", () => {
+    render(<PasswordValidator />);
+    const input = screen.getByPlaceholderText("Escriba su contraseña");
+
+    fireEvent.change(input, { target: { value: "Ab1" } });
+
+    expect(screen.getByText(/Al menos 8 caracteres/)).toHaveTextContent("❌");
+    expect(screen.getByText(/Contiene un número/)).toHaveTextContent("✔️");
+    expect(screen.getByText(/Contiene una letra mayúscula/)).toHaveTextContent("✔️");
+  });
 });
