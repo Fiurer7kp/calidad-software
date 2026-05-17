@@ -17,12 +17,14 @@ import NumAleatorioView from "../views/NumAleatorioView";
 import ShoppingCartView from "../views/ShoppingCartView";
 import SurveyView from "../views/SurveyView";
 import RegisterView from "../views/RegisterView";
+import CienciasSociales from "../views/CienciasSociales";
 
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
+        <Route path="ciencias-sociales" element={<CienciasSociales />} />
         <Route path="three" element={<ThreeDemoView />} />
         <Route path="layouts" element={<LayoutsView />} />
         <Route path="tts" element={<SpeechDemoView />} />
