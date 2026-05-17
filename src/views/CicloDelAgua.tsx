@@ -1,5 +1,34 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import * as THREE from "three";
+import GuideMascot from "../components/GuideMascot";
+import Quiz, { QuizQuestion } from "../components/Quiz";
+
+const QUIZ_QUESTIONS: QuizQuestion[] = [
+  {
+    question: "¿Cuál es la primera fase del ciclo del agua?",
+    options: ["Precipitación", "Condensación", "Evaporación", "Acumulación"],
+    correct: 2,
+    explanation: "La evaporación es cuando el calor del sol convierte el agua líquida en vapor que sube hacia las nubes.",
+  },
+  {
+    question: "¿Qué ocurre durante la condensación?",
+    options: ["El agua cae como lluvia", "El vapor se convierte en pequeñas gotas que forman nubes", "El agua se evapora del mar", "El agua se acumula en ríos"],
+    correct: 1,
+    explanation: "En la condensación, el vapor de agua sube y se enfría, formando pequeñas gotas que crean las nubes.",
+  },
+  {
+    question: "¿Cómo se llama la fase en que el agua cae de las nubes?",
+    options: ["Evaporación", "Condensación", "Acumulación", "Precipitación"],
+    correct: 3,
+    explanation: "La precipitación es cuando el agua cae de las nubes en forma de lluvia, nieve o granizo.",
+  },
+  {
+    question: "¿Cuántas fases tiene el ciclo del agua en esta simulación?",
+    options: ["2", "3", "4", "5"],
+    correct: 2,
+    explanation: "Las 4 fases son: evaporación → condensación → precipitación → acumulación. ¡Y luego empieza de nuevo!",
+  },
+];
 
 const PARTICLE_COUNT = 200;
 const WATER_Y = -2.5;
@@ -250,6 +279,12 @@ export default function CicloDelAgua() {
 
   return (
     <div className="bg-[#0d1117] min-h-full text-white">
+      <div className="px-4 pt-4">
+        <GuideMascot
+          mood="excited"
+          message="¡Observa cómo las partículas suben (evaporación), se juntan en nubes (condensación), caen como lluvia (precipitación) y vuelven al agua (acumulación). ¡Es el ciclo del agua en acción!"
+        />
+      </div>
       <div className="flex flex-col md:flex-row gap-4 p-4">
 
         {/* Canvas + sliders */}
@@ -343,6 +378,11 @@ export default function CicloDelAgua() {
             </ul>
           </div>
         </div>
+      </div>
+
+      {/* Quiz */}
+      <div className="px-4 pb-6">
+        <Quiz title="Quiz del Ciclo del Agua" questions={QUIZ_QUESTIONS} />
       </div>
     </div>
   );
