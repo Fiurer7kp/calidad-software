@@ -20,3 +20,20 @@ describe("Navbar - Renderizado", () => {
   });
 });
 
+// --- Pruebas de comportamiento del tema ---
+describe("Navbar - Cambio de Tema", () => {
+  test("al hacer clic en 'Tema', llama a classList.toggle con 'dark'", () => {
+    render(<Navbar />);
+    const button = screen.getByRole("button", { name: /Tema/i });
+    fireEvent.click(button);
+    expect(document.documentElement.classList.toggle).toHaveBeenCalledWith("dark");
+  });
+
+  test("al hacer clic en 'Tema', guarda el nuevo tema en localStorage", () => {
+    render(<Navbar />);
+    const button = screen.getByRole("button", { name: /Tema/i });
+    fireEvent.click(button);
+    expect(localStorage.setItem).toHaveBeenCalledWith("theme", expect.stringMatching(/dark|light/));
+  });
+});
+
