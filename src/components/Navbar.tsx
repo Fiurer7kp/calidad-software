@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
           <span className="text-white font-semibold text-sm md:text-base leading-tight">
             Mentes Pensantes{" "}
             <span className="text-slate-300 font-normal">
-              — API para Niños · Sebastian Coral &amp; Daniela Torres
+              — API para Niños · Sebastian Coral
             </span>
           </span>
         </div>

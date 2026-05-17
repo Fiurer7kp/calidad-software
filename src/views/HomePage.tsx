@@ -21,10 +21,8 @@ export default function HomePage() {
       >
         <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-white text-sm font-medium"
           style={{ background: "linear-gradient(90deg, #7c3aed, #db2777)" }}>
-          <span className="font-bold text-pink-200">Autores:</span>
+          <span className="font-bold text-pink-200">Autor:</span>
           Sebastian Coral
-          <span className="text-pink-300">&amp;</span>
-          Daniela Torres
         </span>
       </motion.div>
 
