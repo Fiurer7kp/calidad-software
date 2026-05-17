@@ -1,79 +1,98 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FaHome, FaCube, FaColumns, FaMicrophone, FaShapes, FaCalculator, FaRuler, FaKey, FaMouse, FaList, FaDiceSix, FaShoppingCart, FaStar, FaUserPlus, FaGlobe } from "react-icons/fa";
+import { FaTable, FaLeaf, FaGlobe, FaCog } from "react-icons/fa";
 
-interface SidebarItem {
+interface SubItem {
   label: string;
   route: string;
-  icon?: React.ReactNode;
+  icon: React.ReactNode;
 }
 
-const mainItems: SidebarItem[] = [
-  { label: "Inicio", route: "/", icon: <FaHome /> },
-  { label: "Three.js Demo", route: "/three", icon: <FaCube /> },
-  { label: "Responsive Layouts", route: "/layouts", icon: <FaColumns /> },
-  { label: "Text-to-Speech", route: "/tts", icon: <FaMicrophone /> },
-  { label: "Figuras Geometricas", route: "/three_2", icon: <FaShapes /> },
-  { label: "Ciencias Sociales", route: "/ciencias-sociales", icon: <FaGlobe /> },
-];
+interface Section {
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  items: SubItem[];
+}
 
-const exerciseItems: SidebarItem[] = [
-  { label: "Tablas de Multiplicar", route: "/tablasmul", icon: <FaCalculator /> },
-  { label: "Conversor de Unidades", route: "/conversorunid", icon: <FaRuler /> },
-  { label: "Validadador de Contraseñas", route: "/validcontrasena", icon: <FaKey /> },
-  { label: "Contador de Clics con Almacenamiento", route: "/contadorclics", icon: <FaMouse /> },
-  { label: "Lista de Tareas", route: "/listareas", icon: <FaList /> },
-  { label: "Generador de Números Aleatorios", route: "/numaleatorio", icon: <FaDiceSix /> },
-  { label: "Carrito de Compras", route: "/shoppingcart", icon: <FaShoppingCart /> },
-  { label: "Encuesta de Satisfacción", route: "/survey", icon: <FaStar /> },
-  { label: "Formulario de Registro", route: "/register", icon: <FaUserPlus /> },
+const sections: Section[] = [
+  {
+    id: "matematicas",
+    label: "Matemáticas",
+    icon: <FaTable />,
+    items: [
+      { label: "Descomposición", route: "/matematicas/descomposicion", icon: <FaCog /> },
+    ],
+  },
+  {
+    id: "ciencias-naturales",
+    label: "Ciencias Naturales",
+    icon: <FaLeaf />,
+    items: [
+      { label: "Ciencias Naturales", route: "/ciencias-naturales", icon: <FaLeaf /> },
+    ],
+  },
+  {
+    id: "ciencias-sociales",
+    label: "Ciencias Sociales",
+    icon: <FaGlobe />,
+    items: [
+      { label: "Ciencias Sociales", route: "/ciencias-sociales", icon: <FaGlobe /> },
+    ],
+  },
 ];
 
 export default function Sidebar() {
-  const [openMain, setOpenMain] = useState(false);
-  const [openExercises, setOpenExercises] = useState(true);
+  const [open, setOpen] = useState<Record<string, boolean>>({
+    matematicas: true,
+    "ciencias-naturales": true,
+    "ciencias-sociales": true,
+  });
 
-  const renderNavItem = ({ label, route, icon }: SidebarItem) => (
-    <NavLink
-      key={route}
-      to={route}
-      className={({ isActive }) =>
-        `w-full text-left flex items-center gap-2 justify-between rounded-lg px-3 py-2 text-slate-900 dark:text-slate-100
-         hover:bg-slate-50 dark:hover:bg-slate-800
-         ${isActive ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300" : ""}`
-      }
-    >
-      <div className="flex items-center gap-2">{icon} {label}</div>
-    </NavLink>
-  );
+  const toggle = (id: string) => setOpen((prev) => ({ ...prev, [id]: !prev[id] }));
 
   return (
-    <aside className="hidden md:block w-full md:w-[240px] border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-      <div className="p-3 space-y-1">
+    <aside className="hidden md:flex flex-col w-[240px] min-h-0 bg-[#1a1f3c] border-r border-slate-700">
+      <nav className="flex-1 overflow-y-auto p-3 space-y-1">
+        {sections.map((sec) => (
+          <div key={sec.id}>
+            {/* Section header */}
+            <button
+              onClick={() => toggle(sec.id)}
+              className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-700/50 font-semibold text-sm transition"
+            >
+              <span className="flex items-center gap-2">
+                <span className="text-slate-400">{sec.icon}</span>
+                {sec.label}
+              </span>
+              <span className="text-slate-400 text-xs">{open[sec.id] ? "▲" : "▼"}</span>
+            </button>
 
-        {/* Acordeón Main Items */}
-        <button
-          onClick={() => setOpenMain(!openMain)}
-          className="w-full text-left flex items-center justify-between rounded-lg px-3 py-2 text-slate-900 dark:text-slate-100
-                     hover:bg-slate-50 dark:hover:bg-slate-800 font-medium"
-        >
-          Menú Principal
-          <span>{openMain ? "▲" : "▼"}</span>
-        </button>
-        {openMain && <div className="pl-4 space-y-1">{mainItems.map(renderNavItem)}</div>}
-
-        {/* Acordeón Exercises */}
-        <button
-          onClick={() => setOpenExercises(!openExercises)}
-          className="w-full text-left flex items-center justify-between rounded-lg px-3 py-2 text-slate-900 dark:text-slate-100
-                     hover:bg-slate-50 dark:hover:bg-slate-800 font-medium"
-        >
-          Ejercicios - Jtest
-          <span>{openExercises ? "▲" : "▼"}</span>
-        </button>
-        {openExercises && <div className="pl-4 space-y-1">{exerciseItems.map(renderNavItem)}</div>}
-
-      </div>
+            {/* Sub-items */}
+            {open[sec.id] && (
+              <div className="pl-4 mt-0.5 space-y-0.5">
+                {sec.items.map((item) => (
+                  <NavLink
+                    key={item.route}
+                    to={item.route}
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition ${
+                        isActive
+                          ? "bg-purple-800/40 text-purple-300 font-medium"
+                          : "text-slate-400 hover:bg-slate-700/40 hover:text-slate-200"
+                      }`
+                    }
+                  >
+                    <span>{item.icon}</span>
+                    {item.label}
+                    <span className="text-purple-400 text-xs ml-auto">·</span>
+                  </NavLink>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </nav>
     </aside>
   );
 }
