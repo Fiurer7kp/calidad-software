@@ -1,5 +1,34 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import GuideMascot from "../components/GuideMascot";
+import Quiz, { QuizQuestion } from "../components/Quiz";
+
+const QUIZ_QUESTIONS: QuizQuestion[] = [
+  {
+    question: "¿Cuál es el continente más grande del mundo?",
+    options: ["América", "África", "Asia", "Europa"],
+    correct: 2,
+    explanation: "Asia es el continente más grande del mundo, con más de 44 millones de km². ¡Cabe casi toda América dos veces!",
+  },
+  {
+    question: "¿En qué continente está Colombia?",
+    options: ["Europa", "Asia", "África", "América"],
+    correct: 3,
+    explanation: "Colombia está en América del Sur, en el noroeste del continente, bañada por el Pacífico y el Caribe.",
+  },
+  {
+    question: "¿Cuántos continentes hay en el planeta Tierra?",
+    options: ["5", "6", "7", "8"],
+    correct: 2,
+    explanation: "Los 7 continentes son: América del Norte, América del Sur, Europa, África, Asia, Oceanía y la Antártida.",
+  },
+  {
+    question: "¿Qué continente aparece al este de África en el globo?",
+    options: ["Europa", "América", "Oceanía", "Asia"],
+    correct: 3,
+    explanation: "Asia está al este de Europa y Africa. Es el continente con mayor población del mundo.",
+  },
+];
 
 const GLOBE_R = 1.5;
 const EARTH_TEX = "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg";
@@ -318,6 +347,15 @@ export default function CienciasSociales() {
           Mostrando: <span className="font-bold text-white">{selectedContinent}</span>
         </div>
       )}
+
+      {/* Mascot + Quiz */}
+      <div className="px-4 pb-6 space-y-4 max-w-2xl mx-auto w-full">
+        <GuideMascot
+          mood="happy"
+          message="¡Haz clic en los botones de los continentes para girar el globo y ver dónde están! América, Europa, África, Asia y Oceanía son los 5 continentes principales que puedes explorar aquí."
+        />
+        <Quiz title="Quiz de Geografía" questions={QUIZ_QUESTIONS} />
+      </div>
     </div>
   );
 }
