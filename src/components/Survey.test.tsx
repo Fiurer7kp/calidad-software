@@ -35,4 +35,29 @@ describe("Survey Component", () => {
 
     expect(screen.getByText("Gracias por tu calificación: 4 estrellas")).toBeInTheDocument();
   });
+
+  test("al enviar con 1 estrella, el mensaje aparece en singular", () => {
+    render(<Survey />);
+
+    const stars = screen.getAllByText("★");
+    fireEvent.click(stars[0]); // 1ra estrella (valor 1)
+
+    const button = screen.getByRole("button", { name: /Enviar/i });
+    fireEvent.click(button);
+
+    expect(screen.getByText("Gracias por tu calificación: 1 estrella")).toBeInTheDocument();
+  });
+
+  test("cambiar la selección de estrella reemplaza la calificación anterior", () => {
+    render(<Survey />);
+
+    const stars = screen.getAllByText("★");
+    fireEvent.click(stars[1]); // 2 estrellas
+    fireEvent.click(stars[4]); // cambia a 5 estrellas
+
+    const button = screen.getByRole("button", { name: /Enviar/i });
+    fireEvent.click(button);
+
+    expect(screen.getByText("Gracias por tu calificación: 5 estrellas")).toBeInTheDocument();
+  });
 });
