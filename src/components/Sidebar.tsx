@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FaHome, FaCube, FaColumns, FaMicrophone, FaShapes, FaCalculator, FaRuler, FaKey, FaMouse, FaList, FaDiceSix, FaShoppingCart, FaStar, FaUserPlus } from "react-icons/fa";
+import { FaHome, FaCube, FaColumns, FaMicrophone, FaShapes, FaCalculator, FaRuler, FaKey, FaMouse, FaList, FaDiceSix, FaShoppingCart, FaStar, FaUserPlus, FaGlobe } from "react-icons/fa";
 
 interface SidebarItem {
   label: string;
@@ -14,6 +14,7 @@ const mainItems: SidebarItem[] = [
   { label: "Responsive Layouts", route: "/layouts", icon: <FaColumns /> },
   { label: "Text-to-Speech", route: "/tts", icon: <FaMicrophone /> },
   { label: "Figuras Geometricas", route: "/three_2", icon: <FaShapes /> },
+  { label: "Ciencias Sociales", route: "/ciencias-sociales", icon: <FaGlobe /> },
 ];
 
 const exerciseItems: SidebarItem[] = [
