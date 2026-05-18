@@ -3,5 +3,5 @@ import App from "./App";
 
 test("renderiza el título principal", () => {
   render(<App />);
-  expect(screen.getByText(/Bienvenido a React/i)).toBeInTheDocument();
+  expect(screen.getByText("Mentes Pensantes")).toBeInTheDocument();
 });
