@@ -1,20 +1,14 @@
-# Clase UCC - Aplicativo React con Vite
+# API para Aprendizaje — Mentes Pensantes
 
 ## Descripción
 
-Este proyecto es un aplicativo desarrollado en **React con Vite** para aprender y aplicar **pruebas unitarias** con Jest.
+Portal educativo interactivo para niños entre 6 y 12 años, desarrollado con **React 19 + TypeScript + Three.js**. Incluye tres módulos educativos con simulaciones 3D, quizzes interactivos y un tutor virtual animado (Profe Búho).
 
-El aplicativo incluye:
+Módulos disponibles:
 
-* **Sidebar con acordeón** para navegación.
-* **Componentes de ejemplo** para verificar dependencias.
-* **Ejercicios con pruebas unitarias**:
-
-  * Tablas de Multiplicar (`TablasMul.tsx`)
-  * Conversor de Unidades (`UnitConverter.tsx`)
-  * Validador de Contraseñas (`PasswordValidator.tsx`)
-  * Contador de Clics (`ClickCounter.tsx`)
-  * Lista de Tareas (`TodoList.tsx`)
+- **Matemáticas**: Figuras 3D con vistas simultáneas y Fórmula de Euler.
+- **Ciencias Naturales**: Simulación de 200 partículas del ciclo del agua.
+- **Ciencias Sociales**: Globo terráqueo interactivo con 3000 estrellas procedurales.
 
 ---
 
@@ -23,8 +17,8 @@ El aplicativo incluye:
 Clonar el repositorio:
 
 ```bash
-git clone https://github.com/guswill24/ucc_ing_web.git
-cd clase-ucc
+git clone https://github.com/Fiurer7kp/calidad-software.git
+cd api-para-aprendizaje
 ```
 
 Instalar dependencias:
@@ -37,41 +31,40 @@ npm install
 
 ## Scripts disponibles
 
-* **Iniciar servidor de desarrollo**
+- **Iniciar servidor de desarrollo**
 
 ```bash
 npm run dev
 ```
 
-* **Compilar para producción**
+- **Compilar para producción**
 
 ```bash
 npm run build
 ```
 
-* **Previsualizar build de producción**
+- **Previsualizar build de producción**
 
 ```bash
 npm run preview
 ```
 
-* **Ejecutar pruebas unitarias**
+- **Ejecutar pruebas unitarias**
 
 ```bash
 npm test
 ```
 
-* **Revisar tipos TypeScript**
+- **Ejecutar pruebas con reporte de cobertura**
+
+```bash
+npm test -- --coverage
+```
+
+- **Revisar tipos TypeScript**
 
 ```bash
 npm run type-check
-```
-
-* **Linting y formateo**
-
-```bash
-npm run lint
-npm run format
 ```
 
 ---
@@ -80,36 +73,28 @@ npm run format
 
 ```
 src/
-├─ components/       # Componentes reutilizables (Sidebar, UnitConverter, etc.)
-├─ views/            # Vistas de cada ejercicio y ejemplo
-├─ AppRoutes.tsx     # Rutas principales
+├─ components/       # Componentes reutilizables (Layout, Navbar, Sidebar, etc.)
+├─ views/            # Vistas de cada módulo educativo
+├─ routes/           # Configuración de rutas (AppRoutes.tsx)
 └─ main.tsx          # Entrada principal de React
 ```
 
 ---
 
-## Componentes y funcionalidades
+## Stack Tecnológico
 
-1. **Sidebar.tsx**: Menú lateral con acordeón, permite agrupar ejercicios y ejemplos.
-2. **UnitConverter.tsx**: Conversor de unidades (Celsius ↔ Fahrenheit) con input controlado.
-3. **PasswordValidator.tsx**: Validador de contraseñas dinámico, muestra requisitos cumplidos.
-4. **ClickCounter.tsx**: Contador de clics persistente usando `localStorage`.
-5. **TodoList.tsx**: Lista de tareas con agregar y eliminar elementos.
-6. **TablasMul.tsx**: Tabla de multiplicar interactiva.
+- `react` 19.1, `react-dom`, `react-router-dom`
+- `typescript` 5.8
+- `three` 0.179 — motor gráfico 3D
+- `framer-motion` — animaciones y transiciones
+- `tailwindcss` 4.1 — estilos utilitarios
+- `vite` 7.1 — herramienta de construcción
 
 ---
 
-## Pruebas unitarias
+## Pruebas
 
-Las pruebas unitarias están desarrolladas con **Jest** y **React Testing Library**.
-
-* Validan la correcta interacción de los componentes.
-* Comprobar que `localStorage` persista valores en `ClickCounter`.
-* Verificar la lógica de validación en `PasswordValidator`.
-* Confirmar el funcionamiento de agregar y eliminar tareas en `TodoList`.
-* Aseguran que los componentes principales rendericen correctamente.
-
-Ejecutar todas las pruebas:
+Las pruebas unitarias están desarrolladas con **Jest** y **React Testing Library** (23 casos de prueba, cobertura del 78%).
 
 ```bash
 npm test
@@ -117,26 +102,7 @@ npm test
 
 ---
 
-## Consideraciones
-
-* Se recomienda **investigar, analizar e interpretar cada ejercicio** antes de ejecutar pruebas unitarias.
-* Las pruebas serán evaluadas de manera **individual en clase**, considerando la explicación del proceso y la solución aplicada.
-
----
-
-## Dependencias principales
-
-* `react`, `react-dom`, `react-router-dom`
-* `three`
-* `tailwindcss`
-* `framer-motion`
-* `jest`, `@testing-library/react`, `@testing-library/jest-dom`, `@types/jest`
-
----
-
 ## Autor
 
-**Gustavo Sánchez Rodríguez**
-Asignatura: Ingeniería Web
-Clase UCC
-
+**Sebastián Coral**
+Asignatura: Calidad de Software
