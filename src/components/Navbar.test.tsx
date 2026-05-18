@@ -1,5 +1,5 @@
 // src/components/Navbar.test.tsx
-import { render, screen} from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Navbar from "./Navbar";
 
 // Limpia los mocks antes de cada prueba
@@ -9,29 +9,29 @@ beforeEach(() => {
 
 // --- Pruebas de renderizado ---
 describe("Navbar - Renderizado", () => {
-  test("renderiza el título principal 'UCC : Prácticas Desarrollo'", () => {
+  test("renderiza el título principal 'Mentes Pensantes'", () => {
     render(<Navbar />);
-    expect(screen.getByText(/UCC : Prácticas Desarrollo/i)).toBeInTheDocument();
+    expect(screen.getByText(/Mentes Pensantes/i)).toBeInTheDocument();
   });
 
-  test("renderiza el botón con el texto 'Tema'", () => {
+  test("renderiza el botón de cambio de tema", () => {
     render(<Navbar />);
-    expect(screen.getByRole("button", { name: /Tema/i })).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeInTheDocument();
   });
 });
 
 // --- Pruebas de comportamiento del tema ---
 describe("Navbar - Cambio de Tema", () => {
-  test("al hacer clic en 'Tema', llama a classList.toggle con 'dark'", () => {
+  test("al hacer clic en el botón de tema, llama a classList.toggle con 'dark'", () => {
     render(<Navbar />);
-    const button = screen.getByRole("button", { name: /Tema/i });
+    const button = screen.getByRole("button");
     fireEvent.click(button);
     expect(document.documentElement.classList.toggle).toHaveBeenCalledWith("dark");
   });
 
-  test("al hacer clic en 'Tema', guarda el nuevo tema en localStorage", () => {
+  test("al hacer clic en el botón de tema, guarda el nuevo tema en localStorage", () => {
     render(<Navbar />);
-    const button = screen.getByRole("button", { name: /Tema/i });
+    const button = screen.getByRole("button");
     fireEvent.click(button);
     expect(localStorage.setItem).toHaveBeenCalledWith("theme", expect.stringMatching(/dark|light/));
   });
