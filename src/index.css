@@ -1,14 +1,81 @@
 @import "tailwindcss";
 
+/* ── Fuente global ───────────────────────────── */
 *, *::before, *::after {
   font-family: 'Nunito', system-ui, sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
+/* ── Variables de tema ───────────────────────── */
+:root {
+  /* Modo claro (default) */
+  --mp-bg:       #f0f4ff;
+  --mp-card:     #ffffff;
+  --mp-card-2:   #f4f6ff;
+  --mp-option:   #e8edf8;
+  --mp-border:   #e2e8f0;
+  --mp-text:     #0f172a;
+  --mp-text-2:   #334155;
+  --mp-text-3:   #64748b;
+  --mp-input:    #f8faff;
+  --mp-scrollbar:#c7d2fe;
 }
 
-/* Scrollbar styling */
+html.dark {
+  /* Modo oscuro */
+  --mp-bg:       #0d1117;
+  --mp-card:     #1e293b;
+  --mp-card-2:   #0f172a;
+  --mp-option:   #334155;
+  --mp-border:   rgba(148,163,184,0.12);
+  --mp-text:     #f1f5f9;
+  --mp-text-2:   #cbd5e1;
+  --mp-text-3:   #94a3b8;
+  --mp-input:    #1a2535;
+  --mp-scrollbar:#4c1d95;
+}
+
+/* ── Aplicar al body ─────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--mp-bg);
+}
+
+body {
+  background-color: var(--mp-bg);
+  color: var(--mp-text);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Transición suave en todos los elementos clave */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+/* Pero NO en animaciones de framer-motion ni 3D */
+canvas, [data-framer-motion-animate] {
+  transition: none !important;
+}
+
+/* ── Safe area (móvil con notch) ────────────── */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ── Touch optimizations ────────────────────── */
+body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overscroll-behavior: none;
+}
+
+button, a, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Scrollbar styling ──────────────────────── */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -16,14 +83,48 @@ html {
   background: #1a1f3c;
 }
 ::-webkit-scrollbar-thumb {
-  background: #4c1d95;
+  background: var(--mp-scrollbar);
   border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #7c3aed;
 }
 
-/* Range input kid-friendly */
+/* ── Range input ────────────────────────────── */
 input[type="range"] {
   cursor: pointer;
+}
+
+/* ── Accesibilidad: focus ring ───────────────── */
+:focus-visible {
+  outline: 2px solid #a78bfa;
+  outline-offset: 2px;
+}
+
+/* ── Screen reader only ─────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: initial;
+  margin: initial;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ── 3D canvas: touch rotation ───────────────── */
+canvas {
+  touch-action: none;
 }

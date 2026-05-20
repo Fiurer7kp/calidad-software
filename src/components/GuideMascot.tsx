@@ -8,7 +8,14 @@ interface GuideMascotProps {
 
 const MOOD_CONFIG: Record<
   string,
-  { emoji: string; bg: string; border: string; text: string; label: string; labelColor: string }
+  {
+    emoji: string;
+    bg: string;
+    border: string;
+    text: string;
+    label: string;
+    labelColor: string;
+  }
 > = {
   happy: {
     emoji: "🦉",
@@ -44,7 +51,10 @@ const MOOD_CONFIG: Record<
   },
 };
 
-export default function GuideMascot({ message, mood = "happy" }: GuideMascotProps) {
+export default function GuideMascot({
+  message,
+  mood = "happy",
+}: GuideMascotProps) {
   const [visible, setVisible] = useState(true);
   const cfg = MOOD_CONFIG[mood];
 
@@ -56,10 +66,12 @@ export default function GuideMascot({ message, mood = "happy" }: GuideMascotProp
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.95 }}
           transition={{ duration: 0.35 }}
+          role="complementary"
+          aria-label={`${cfg.label}: ${message}`}
           className={`flex items-start gap-4 ${cfg.bg} border ${cfg.border} rounded-3xl p-4 relative shadow-lg`}
         >
           {/* Owl avatar */}
-          <div className="flex-shrink-0 flex flex-col items-center gap-0.5">
+          <div className="flex-shrink-0 flex flex-col items-center gap-0.5" aria-hidden="true">
             <motion.div
               animate={{ rotate: [-10, 10, -10], y: [0, -4, 0] }}
               transition={{ repeat: Infinity, duration: 2.8, ease: "easeInOut" }}
@@ -74,7 +86,6 @@ export default function GuideMascot({ message, mood = "happy" }: GuideMascotProp
 
           {/* Speech bubble */}
           <div className="relative flex-1 mt-1">
-            {/* Triangle pointer */}
             <div
               className="absolute -left-2.5 top-3 w-0 h-0"
               style={{
@@ -82,9 +93,12 @@ export default function GuideMascot({ message, mood = "happy" }: GuideMascotProp
                 borderBottom: "8px solid transparent",
                 borderRight: "10px solid rgba(255,255,255,0.07)",
               }}
+              aria-hidden="true"
             />
             <div className="bg-white/5 rounded-2xl px-4 py-3">
-              <p className={`${cfg.text} text-sm leading-relaxed font-semibold`}>{message}</p>
+              <p className={`${cfg.text} text-sm leading-relaxed font-semibold`}>
+                {message}
+              </p>
             </div>
           </div>
 
@@ -93,8 +107,8 @@ export default function GuideMascot({ message, mood = "happy" }: GuideMascotProp
             onClick={() => setVisible(false)}
             whileHover={{ scale: 1.2, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
-            className={`absolute top-3 right-3 ${cfg.labelColor} hover:text-white text-xs leading-none transition-colors`}
-            aria-label="Cerrar ayuda"
+            className={`absolute top-3 right-3 ${cfg.labelColor} hover:text-white text-xs leading-none transition-colors focus:outline-none focus:ring-2 focus:ring-current rounded`}
+            aria-label="Cerrar ayuda de Profe Búho"
           >
             ✕
           </motion.button>

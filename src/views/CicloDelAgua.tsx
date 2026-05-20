@@ -278,7 +278,7 @@ export default function CicloDelAgua() {
   };
 
   return (
-    <div className="bg-[#0d1117] min-h-full text-white">
+    <div className="bg-[var(--mp-bg)] min-h-full text-[var(--mp-text)]">
       <div className="px-4 pt-4">
         <GuideMascot
           mood="excited"

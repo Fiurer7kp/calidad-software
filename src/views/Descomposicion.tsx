@@ -157,7 +157,7 @@ export default function Descomposicion() {
   const data = FIGURES[fig];
 
   return (
-    <div className="bg-[#0d1117] min-h-full text-white px-4 py-8">
+    <div className="bg-[var(--mp-bg)] min-h-full text-[var(--mp-text)] px-4 py-8">
       {/* Encabezado */}
       <div className="text-center mb-6">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-purple-900/50 mb-3">
